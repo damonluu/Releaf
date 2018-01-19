@@ -1,0 +1,16 @@
+{
+  "name": "mongochat",
+  "version": "1.0.0",
+  "description": "Chatbox between multiple users using socket.io",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.2",
+    "mongodb": "^3.0.1",
+    "socket.io": "^2.0.4"
+  }
+}
