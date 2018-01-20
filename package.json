@@ -9,6 +9,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "angular": "^1.6.8",
+    "angular-route": "^1.6.8",
     "express": "^4.16.2",
     "mongodb": "^3.0.1",
     "socket.io": "^2.0.4"

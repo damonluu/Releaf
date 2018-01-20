@@ -19,8 +19,8 @@ mongo.connect(url, function(err, db) {
 	if (err) {
 		throw err;
 	}
-	console.log('Connected to MongoDB...');
-
+	console.log('Connected to MongoDB at 27017');
+	console.log('Can now go to localhost:5000');
 	// Connect to Socket.io
 	io.on('connection', function(socket) {
     const myDb = db.db('mongochat');
