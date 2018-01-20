@@ -1,9 +1,12 @@
 const mongo = require('mongodb').MongoClient;
-const client = require('socket.io').listen(4000).sockets;
 const express = require('express');
 const app = express();
+const server = require('http').createServer(app);
+const client = require('socket.io')(server);
+server.listen(5000)
 
-app.listen(5000);
+
+
 app.use(
 	express.static(__dirname + '/public', {
 		extensions: ['html']
