@@ -2,7 +2,7 @@ const mongo = require('mongodb').MongoClient;
 const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
-const client = require('socket.io')(server);
+const io = require('socket.io')(server);
 server.listen(5000)
 
 
@@ -22,7 +22,7 @@ mongo.connect(url, function(err, db) {
 	console.log('Connected to MongoDB...');
 
 	// Connect to Socket.io
-	client.on('connection', function(socket) {
+	io.on('connection', function(socket) {
     const myDb = db.db('mongochat');
     // myDb.collection('chats').insertOne({});
 
@@ -57,7 +57,7 @@ mongo.connect(url, function(err, db) {
 			} else {
 				// Insert message into MongoDB
 				chat.insert({ name: name, message: message }, function() {
-					client.emit('output', [data]);
+					io.emit('output', [data]);
 
 					// Sent status object
 					sendStatus({
