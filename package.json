@@ -1,5 +1,5 @@
 {
-  "name": "mongochat",
+  "name": "releaf",
   "version": "1.0.0",
   "description": "Chatbox between multiple users using socket.io",
   "main": "server.js",

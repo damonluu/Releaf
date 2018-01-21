@@ -1,0 +1,12 @@
+{
+	"name": "angular",
+	"version": "1.2.25",
+	"dependencies": {
+		"bootstrap": "4.0.0-beta",
+		"components-font-awesome": "^4.7.0",
+		"angular-route": "1.2.25",
+		"jquery": "^3.2.1",
+		"simple-line-icons":"2.4.1",
+		"jquery.easing":"1.3.1"
+	}
+}

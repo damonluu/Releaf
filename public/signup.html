@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="inputForm">
+<html ng-app="signUpApp">
 
 <head>
   <link rel="shortcut icon" type="image/x-icon" href="img/releaf_thumbnail.png" />
@@ -8,17 +8,18 @@
   <link rel="stylesheet" href="css/homepage.css">
   <link rel="stylesheet" href="css/signup.css">
   <title>Releaf</title>
+  <script src="vendor/angular/angular.min.js"></script>
+  <script src="vendor/angular-route/angular-route.min.js"></script>
+  <script src="vendor/jquery/dist/jquery.min.js"></script>
+  <script src="js/signup.js"></script>
 </head>
 <body>
 </body>
   <div class="bg">
     <img class="logo" src="img/releaf_logo-01.png">
-
+    <div class="container">
+      <ng-view></ng-view>
+    </div>
   </div>
 </div>
-    <!-- <input ng-model="users.lastName" id="last" pattern="^[a-zA-Z_ ]*$" oninvalid="setCustomValidity('Please enter letters only')" name="user[lastName]" type="text" placeholder="Last Name" autofocus="autofocus" required="required" class="input pass" />
-    <input ng-model="users.lastName" id="last" pattern="^[a-zA-Z_ ]*$" oninvalid="setCustomValidity('Please enter letters only')" name="user[lastName]" type="text" placeholder="Last Name" autofocus="autofocus" required="required" class="input pass" />
-    <input ng-model="users.lastName" id="last" pattern="^[a-zA-Z_ ]*$" oninvalid="setCustomValidity('Please enter letters only')" name="user[lastName]" type="text" placeholder="Last Name" autofocus="autofocus" required="required" class="input pass" />
-    <input ng-model="users.lastName" id="last" pattern="^[a-zA-Z_ ]*$" oninvalid="setCustomValidity('Please enter letters only')" name="user[lastName]" type="text" placeholder="Last Name" autofocus="autofocus" required="required" class="input pass" />
-    <input ng-model="users.lastName" id="last" pattern="^[a-zA-Z_ ]*$" oninvalid="setCustomValidity('Please enter letters only')" name="user[lastName]" type="text" placeholder="Last Name" autofocus="autofocus" required="required" class="input pass" /> -->
 </html>
