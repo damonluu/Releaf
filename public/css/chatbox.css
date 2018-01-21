@@ -1,0 +1,98 @@
+.username{
+  text-align: center;
+  color: white;
+  font-size: 25px;
+  font-weight: lighter;
+}
+.below{
+  font-size: 15px;
+  text-align: center;
+  color: #625F5F;
+  margin-bottom: 10px;
+}
+.inputbox{
+  background-color: rgba(255,255,255,0.65);
+  border-radius: 15px;
+  border: solid white 1px;
+  height: 400px;
+  width: 550px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#messages{
+  position: relative;
+  height: 250px;
+
+}
+#textarea{
+  position: relative;
+  width: 300px;
+  height: 50px;
+  border: solid rgba(244,121,113,1) 1px;
+}
+.center{
+  margin: 0 auto; /* Added */
+  float: none; /* Added */
+  margin-bottom: 10px; /* Added */
+}
+.col-md-7{
+  margin-left: 0;
+  padding-left: 0;
+  padding-right: 0;
+}
+h4{
+  margin-left: 30px;
+  margin-top: 20px;
+  font-weight:400;
+}
+.chatRoom{
+  margin-left: 10px;
+}
+.col-sm-2{
+  margin-left: 30px;
+}
+#chatRow{
+  height:50px;
+  margin-top: 20px;
+}
+#profile{
+  width: 50px;
+  border-radius: 1px;
+  text-align: center;
+}
+#end{
+  margin-left: -15px;
+  background-color: rgba(244,121,113,1);
+  color: white;
+  border-radius: 10px;
+  border: solid white 1px;
+}
+.loader {
+  margin-top:50px;
+  margin-left: auto;
+  margin-right: auto;
+  border: 14px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 16px solid rgba(244,121,113,1);
+  width: 220px;
+  height: 220px;
+  -webkit-animation: spin 2s linear infinite; /* Safari */
+  animation: spin 2s linear infinite;
+}
+
+/* Safari */
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+.loadTitle{
+  text-align: center;
+  color: white;
+  margin-bottom: 5px;
+  font-size: 40px;
+}
