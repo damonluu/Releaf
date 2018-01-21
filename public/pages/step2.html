@@ -1,22 +1,78 @@
 <div class="heading">Get Started 2/2</div>
 <div class="subheading">Almost done! Tell us a bit more about yourself for the best match</div>
 <div class="inputbox">
+  <div class="container">
   <div class="row">
-  <div class="title">Age</div>
+  <div class="attribute">Age</div>
+  <div class="dropdown" id="ageButton">
+    <button class="btn btn-secondary  btn-sm dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+      Select your age
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+      <button class="dropdown-item" type="button" id="age1" value="1">18-24 years old</button>
+      <button class="dropdown-item" type="button" id="age2" value="2">25-34 years old</button>
+      <button class="dropdown-item" type="button" id="age3" value="3">35-44 years old</button>
+      <button class="dropdown-item" type="button" id="age4" value="4">45-54 years old</button>
+      <button class="dropdown-item" type="button" id="age5" value="5">55+ years old</button>
+    </div>
+  </div>
   </div>
   <div class="row">
-  <div class="title">Gender</div>
+  <div class="attribute">Gender</div>
+  <form>
+    <div class="form-check form-check-inline">
+  <label class="form-check-label">
+    <input class="form-check-input" type="checkbox" id="M" value="1">Male
+  </label>
+</div>
+<div class="form-check form-check-inline">
+  <label class="form-check-label">
+    <input class="form-check-input" type="checkbox" id="F" value="2">Female
+  </label>
+</div>
+<div class="form-check form-check-inline">
+  <label class="form-check-label">
+    <input class="form-check-input" type="checkbox" id="O" value="3">Other
+  </label>
+</div>
+  </form>
   </div>
   <div class="row">
-  <div class="title">I'd like to talk to</div>
+  <div class="attribute">I'd like to talk to</div>
+  <form>
+  <div class="form-check form-check-inline">
+    <label class="form-check-label">
+      <input class="form-check-input2" type="checkbox" id="Samegender" value="1">Same Gender
+    </label>
+  </div>
+  <div class="form-check form-check-inline">
+    <label class="form-check-label">
+      <input class="form-check-input2" type="checkbox" id="Opentoall" value="2">Open to all
+    </label>
+  </div>
+    </form>
   </div>
   <div class="row">
-  <div class="title">Marital Status</div>
+  <div class="attribute">Marital Status</div>
+  <div class="dropdown" id="ageButton">
+   <button class="btn btn-secondary  btn-sm dropdown-toggle" type="button" id="dropdownMenu3" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" >
+      Select a status
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+      <button class="dropdown-item" type="button" id="status1">Single</button>
+      <button class="dropdown-item" type="button" id="status2">Married</button>
+      <button class="dropdown-item" type="button" id="status3">Divorced</button>
+      <button class="dropdown-item" type="button" id="status4">Separated</button>
+      <button class="dropdown-item" type="button" id="status5">Widowed</button>
+    </div>
   </div>
-  <div class="button-container">
-    <img class="button-left" href="../img/releaf_buttons-01.png"></img>
-    <img class="button-right" href="../img/releaf_buttons-02.png"></img>
-    <p id="pageNumber">Page 1 of 2</p>
   </div>
-
+</div>
+  <div class="button-container2">
+    <img class="button-left" src="../img/releaf_buttons-01.png"></img>
+    <img class="button-right" src="../img/releaf_buttons-02.png"></img>
+    <p id="pageNumber">Page 2 of 2</p>
+    <button type="button" class="btn btn-secondary" id="submitInfo" >Submit</button>
+  </div>
+</div>
 </div>

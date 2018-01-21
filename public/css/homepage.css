@@ -97,7 +97,7 @@ center {
   100% {
     -webkit-filter: blur(12px);
             filter: blur(12px);
-    opacity: 1;
+    opacity: 0;
   }
 }
 @keyframes text-focus-in {
@@ -119,6 +119,6 @@ center {
   100% {
     -webkit-filter: blur(12px);
             filter: blur(12px);
-    opacity: 1;
+    opacity: 0;
   }
 }
