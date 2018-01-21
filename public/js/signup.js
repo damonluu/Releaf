@@ -26,17 +26,18 @@ signUpApp.factory('user', function() {
 		gender: '',
 		interestedGender: '',
 		marital: '',
-		active: ''
+		weight: ''
 	};
 	return {
 		getData: function() {
 			return user;
 		},
-		setData: function(newAge, newGender, newInterest, newMarital) {
+		setData: function(newAge, newGender, newInterest, newMarital, newWeight) {
 			user.age = newAge;
 			user.gender = newGender;
 			user.interestedGender = newInterest;
 			user.marital = newMarital;
+      user.weight = newWeight;
 		},
 		setReason: function(newReason) {
 			user.reason = newReason;
@@ -343,8 +344,15 @@ signUpApp.controller('SignUp2Controller', [
 				if (selectedInterest == 1) {
 					selectedInterest = selectedGender;
 				}
-				user.setData(age, selectedGender, selectedInterest, marital);
-				var json = user.getData();
+
+        var json = user.getData();
+        console.log(json);
+        console.log(parseInt(json.interestedGender) * 10);
+        console.log(parseInt(json.marital));
+				var weight = (json.reason * 1000) + (json.age * 100) + (parseInt(json.interestedGender) * 10) + parseInt(json.marital);
+				user.setData(age, selectedGender, selectedInterest, marital, weight);
+				json = user.getData();
+
 
 				console.log(JSON.stringify(json));
 				$http

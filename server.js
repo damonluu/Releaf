@@ -11,6 +11,9 @@ const userName = {
 	'Anonymous Fern': './public/img/releaf_icons-fern',
 	'Anonymous Maple': './public/img/releaf_icons-maple'
 };
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+
 
 
 
@@ -61,10 +64,11 @@ mongo.connect(url, function(err, database) {
 
 app.post('/user', function(req, res) {
 	console.log('Here');
-	myDb.collection('users').insertOne({});
+	console.log(req.body);
+	// myDb.collection('users').insertOne({});
 	// let user = myDb.collection('users');
 
-	myDb.collection('users').insert(req, function(err, result) {
+	myDb.collection('users').insert(req.body, function(err, result) {
 		if(err) {
 			res.send('Error in new user');
 			throw err;
