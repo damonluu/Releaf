@@ -26,8 +26,9 @@
 }
 #textarea{
   position: relative;
-  width: 300px;
+  width: 330px;
   height: 50px;
+  margin-left: 20px;
   border: solid rgba(244,121,113,1) 1px;
 }
 .center{
@@ -35,25 +36,18 @@
   float: none; /* Added */
   margin-bottom: 10px; /* Added */
 }
-.col-md-7{
-  margin-left: 0;
-  padding-left: 0;
-  padding-right: 0;
-}
+
 h4{
   margin-left: 30px;
   margin-top: 20px;
   font-weight:400;
 }
-.chatRoom{
-  margin-left: 10px;
-}
-.col-sm-2{
-  margin-left: 30px;
+#chatRoom{
+  margin-left: 0px;
+  margin-top: 0px;
 }
 #chatRow{
   height:50px;
-  margin-top: 20px;
 }
 #profile{
   width: 50px;
@@ -61,11 +55,11 @@ h4{
   text-align: center;
 }
 #end{
-  margin-left: -15px;
   background-color: rgba(244,121,113,1);
   color: white;
   border-radius: 10px;
   border: solid white 1px;
+  margin-left: 30px;
 }
 .loader {
   margin-top:50px;

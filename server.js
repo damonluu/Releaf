@@ -15,8 +15,6 @@ var bodyParser = require('body-parser');
 app.use(bodyParser.json());
 
 
-
-
 var Filter = require('bad-words'),
 filter = new Filter();
 
@@ -31,17 +29,17 @@ app.use(
 var queue = [];
 var ids = {};
 
-var findMatch = function(socket) {
+var findMatch = function(socket,data) {
 	// console.log(queue);
 	if (queue.length > 0) {
 		var other = queue.pop();
-		console.log('socket ' + socket);
-		console.log('mongo id: ' + ids[socket.id].mongoid);
-		console.log('paired mongo id: ' + ids[other.id].pairedmongoid);
-		socket.emit('start chat', ids[other.id]);
-		other.emit('start chat', ids[socket.id]);
+		console.log('mongo id: ' + data);
+		console.log('paired mongo id:' + other);
+		var matchedJson = {'myid':data,'otherid':other};
+		socket.broadcast.emit('release',matchedJson);
+		socket.emit('start chat', matchedJson);
 	} else {
-		queue.push(socket);
+		queue.push(data);
 		console.log('WAITING');
 	}
 };
@@ -63,31 +61,33 @@ mongo.connect(url, function(err, database) {
 });
 
 app.post('/user', function(req, res) {
-	console.log('Here');
 	console.log(req.body);
 	// myDb.collection('users').insertOne({});
 	// let user = myDb.collection('users');
 
 	myDb.collection('users').insert(req.body, function(err, result) {
+
 		if(err) {
 			res.send('Error in new user');
 			throw err;
 		} else {
-			res.send('new user success');
-		}
-	})
-})
+			console.log(req.body._id);
+			res.status(200).json(req.body._id);
+			return res.end();
+			}
+		});
+});
 
 
 // Connect to Socket.io
 io.on('connection', function(socket) {
-	console.log('User ' + socket.id + ' connected');
+	var s = socket;
+	// console.log('User ' + myid + ' connected');
 
 	socket.on('login', function(data) {
-		console.log('mongoid login: ' + data.mongoid);
-		console.log('pairedmongoid: ' + data.pairedmongoid);
-		ids[socket.id] = data;
-		findMatch(socket);
+		console.log('Log-in with' + data);
+		findMatch(s,data);//your id
+
 	});
 
 	// socket.on('match',function(data){

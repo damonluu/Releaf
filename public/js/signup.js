@@ -10,6 +10,14 @@ signUpApp.config(function($routeProvider) {
 			templateUrl: 'pages/step2.html',
 			controller: 'SignUp2Controller'
 		})
+    .when('/loading/', {
+      templateUrl: 'pages/loading.html',
+      controller: 'loadingController'
+    })
+    .when('/chatbox/', {
+      templateUrl: 'pages/chat.html',
+      controller: 'chatController'
+    })
 		.otherwise({
 			redirectTo: '/',
 			templateUrl: 'pages/step1.html',
@@ -330,7 +338,6 @@ signUpApp.controller('SignUp2Controller', [
 		});
 
 		$('#submitInfo').click(function() {
-			console.log($('#dropdownMenu2').val());
 			if (
 				$('#dropdownMenu2')
 					.html()
@@ -344,27 +351,137 @@ signUpApp.controller('SignUp2Controller', [
 				if (selectedInterest == 1) {
 					selectedInterest = selectedGender;
 				}
-
         var json = user.getData();
-        console.log(json);
-        console.log(parseInt(json.interestedGender) * 10);
-        console.log(parseInt(json.marital));
-				var weight = (json.reason * 1000) + (json.age * 100) + (parseInt(json.interestedGender) * 10) + parseInt(json.marital);
-				user.setData(age, selectedGender, selectedInterest, marital, weight);
+				var weight = (json.reason * 1000) + (age * 100) + (selectedGender * 10) + marital;
+	        user.setData(age, selectedGender, selectedInterest, marital, weight);
 				json = user.getData();
-
-
 				console.log(JSON.stringify(json));
-				$http
-					.post('/user', json)
-					.then(function(response) {
-						console.log('created account successfully');
-						console.log(response);
-					})
-					.catch(function(response) {
-						console.error('error in creating account');
-					});
+        window.location.href = 'signup#/loading/';
 			}
 		});
 	}
 ]);
+
+signUpApp.controller('loadingController', [
+	'$scope',
+	'user',
+	'$http',
+	function($scope, user, $http) {
+    var json = user.getData();
+    console.log(JSON.stringify(json))
+
+    $http
+      .post('/user', json)
+      .then(function(response) {
+        console.log('created account successfully');
+        var myID = response.data;
+        console.log("Arrived at loading page again!");
+        var socket = io.connect('http://localhost:5000');
+        if(socket!= undefined){
+          console.log('Connected to socket..');
+          socket.on('connect', function() {
+      			console.log('connect socket in client js');
+      			console.log('myID: ' + myID );
+            // socket.mongoid = testmongoid;
+      			socket.emit('login', myID);
+      		});
+          socket.on('release', function(matchedJson){
+            console.log('you got released' + matchedJson);
+              if(myID == matchedJson.otherid){
+                  console.log('you are now connected with a pair');
+                  window.location.href = '/signup#/chatbox'
+                  // var message = document.createElement('div');
+                  // message.setAttribute('class', 'chat-message');
+                  // message.textContent = 'You are now connected';
+                  // messages.appendChild(message);
+                  // messages.insertBefore(message, messages.firstChild);
+              }
+          });
+      		socket.on('start chat', function(data) {
+            console.log('inside start chat');
+            console.log('data: ' + JSON.stringify(data));
+            console.log('myID:' + myID)
+            console.log('data.mongoid: ' + data.myid);
+            console.log('data.pairedmongoid: ' + data.otherid);
+      			// if (data.name != loggedin) {
+      			// 	alert('test');
+      			// }
+            if(data.myid == myID || data.otherid == myID) {
+              console.log('you are now connected with a pair');
+              window.location.href = '/signup#/chatbox'
+              // var message = document.createElement('div');
+              // message.setAttribute('class', 'chat-message');
+              // message.textContent = 'You are now connected';
+              // messages.appendChild(message);
+              // messages.insertBefore(message, messages.firstChild);
+            }
+
+
+      		});
+
+      		socket.on('output', function(data) {
+            console.log('socket output data');
+            console.log('data: ' + JSON.stringify(data));
+            console.log('data.testmongoid: ' + data.testmongoid);
+            console.log('data.pairedmongoid: ' + data.pairedmongoid);
+            if(!data[0] && (data.testmongoid == testmongoid || data.pairedmongoid == testmongoid)) {
+              // if (data.length) {
+              console.log('client js inside socket output after if statement');
+      					// for (var x = 0; x < data.length; x++) {
+      						// build message div
+      						var message = document.createElement('div');
+      						message.setAttribute('class', 'chat-message');
+      						message.textContent = data.name + ': ' + data.message;
+      						messages.appendChild(message);
+      						messages.insertBefore(message, messages.firstChild);
+      					// }
+      				// }
+            }
+      		});
+
+      		// Handle input
+      		// textarea.addEventListener('keydown', function(event) {
+      		// 	// If enter/return key is pressed
+      		// 	if (event.which === 13 && !event.shiftKey) {
+      		// 		// Emit to server input
+          //     socket.emit('input', {
+      		// 			name: username.value,
+      		// 			message: textarea.value,
+          //       testmongoid: testmongoid,
+          //       pairedmongoid: pairedmongoid
+      		// 		});
+      		// 		textarea.value = '';
+      		// 		event.preventDefault();
+      		// 	}
+      		// });
+        }
+      })
+      .catch(function(response) {
+        console.error('error in creating account');
+      });
+
+  }]);
+
+  signUpApp.controller('chatController',[
+    '$scope',
+  	'user',
+  	'$http',
+    function($scope, user, $http) {
+      var generatedName = ['Anonymous Aloe','Anonymous Clover','Anonymous Eucalyptus','Anonymous Evergreen','Anonymous Fern','Anonymous Maple'];
+      var generatedIcon = {
+        'Anonymous Aloe': './public/img/releaf_icons-aloe',
+        'Anonymous Clover': './public/img/releaf_icons-clover',
+        'Anonymous Eucalyptus': './public/img/releaf_icons-clover',
+        'Anonymous Evergreen': './public/img/releaf_icons-evergreen',
+        'Anonymous Fern': './public/img/releaf_icons-fern',
+        'Anonymous Maple': './public/img/releaf_icons-maple'
+      };
+      var num = Math.floor(Math.random() * 6);
+      var userDisplayName = generatedName[num];
+      num = Math.floor(Math.random() * 6);
+      var pairDisplayName = generatedName[num];
+      $scope.myGeneratedName = userDisplayName;
+      $scope.myPairGeneratedName =pairDisplayName;
+      console.log(socket);
+
+  }]);

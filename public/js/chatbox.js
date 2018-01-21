@@ -2,18 +2,11 @@ var chatModule = angular.module('chatModule',['ngRoute']);
 chatModule.config(function($routeProvider) {
     $routeProvider
       // route for the about page
-      .when('/loading', {
-        templateUrl: 'pages/loading.html',
-        controller: 'loadingController'
-      })
-      .when('/chatbox', {
-        templateUrl: 'pages/chat.html',
-        controller: 'chatController'
-      })
+      
       .otherwise({
         redirectTo: '/',
-        templateUrl: 'pages/loading.html',
-        controller: 'loadingController'
+        templateUrl: 'pages/chat.html',
+        controller: 'chatController'
       });
   });
 
