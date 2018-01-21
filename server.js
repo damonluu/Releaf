@@ -3,9 +3,21 @@ const express = require('express');
 const app = express();
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
-server.listen(5000)
+const userName = {
+	'Anonymous Aloe': './public/img/releaf_icons-aloe',
+	'Anonymous Clover': './public/img/releaf_icons-clover',
+	'Anonymous Eucalyptus': './public/img/releaf_icons-clover',
+	'Anonymous Evergreen': './public/img/releaf_icons-evergreen',
+	'Anonymous Fern': './public/img/releaf_icons-fern',
+	'Anonymous Maple': './public/img/releaf_icons-maple'
+};
 
 
+
+var Filter = require('bad-words'),
+filter = new Filter();
+
+server.listen(5000);
 
 app.use(
 	express.static(__dirname + '/public', {
@@ -13,68 +25,83 @@ app.use(
 	})
 );
 
+var queue = [];
+var ids = {};
+
+var findMatch = function(socket) {
+	// console.log(queue);
+	if (queue.length > 0) {
+		var other = queue.pop();
+		console.log('socket ' + socket);
+		console.log('mongo id: ' + ids[socket.id].mongoid);
+		console.log('paired mongo id: ' + ids[other.id].pairedmongoid);
+		socket.emit('start chat', ids[other.id]);
+		other.emit('start chat', ids[socket.id]);
+	} else {
+		queue.push(socket);
+		console.log('WAITING');
+	}
+};
+
 // Connect to mongodb
-var url = 'mongodb://localhost:27017/mongochat';
+var url = 'mongodb://localhost:27017/releaf';
 mongo.connect(url, function(err, db) {
 	if (err) {
 		throw err;
 	}
-	console.log('Connected to MongoDB at 27017');
-	console.log('Can now go to localhost:5000');
+	console.log('Connected to MongoDB...');
+
 	// Connect to Socket.io
 	io.on('connection', function(socket) {
-    const myDb = db.db('mongochat');
-    // myDb.collection('chats').insertOne({});
+		const myDb = db.db('releaf');
+		// myDb.collection('chats').insertOne({});
+		// let chat = myDb.collection('chats');
+		console.log('User ' + socket.id + ' connected');
 
-		let chat = myDb.collection('chats');
+		socket.on('login', function(data) {
+			console.log('mongoid login: ' + data.mongoid);
+			console.log('pairedmongoid: ' + data.pairedmongoid);
+			ids[socket.id] = data;
+			findMatch(socket);
+		});
 
-		// Create function to send status
-		sendStatus = function(s) {
-			socket.emit('status', s);
-		};
-
-		// Get chats from mongo collection
-		chat
-			.find()
-			.limit(100)
-			.sort({ _id: 1 })
-			.toArray(function(err, res) {
-				if (err) {
-					throw err;
-				}
-
-				// Emit the messages
-				socket.emit('output', res);
-			});
+		// socket.on('match',function(data){
+		// 	var idA = '5a63f025bd382aa89ba5529a';
+		// 	//
+		// 	//Return idB -> best match
+		// 	var idB = '5a63f025bd382aa89ba5529b';
+		// 	//Create a collection with roomID first
+		// 	//Change roomID and change status for both id
+		// 	//Emit found message
+		// 	io.emit('matched', res);
+		// });
 
 		// Handle input events
 		socket.on('input', function(data) {
+			//Data contains objectID
 			let name = data.name;
 			let message = data.message;
+			//update chat var based on data.roomID
+
+			// generate a random number between 0 - 5
+			var num = Math.floor(Math.random() * 6);
+			// Assign the random dispaly name to the user
+			// var userDisplayName = userName.get(num);
 
 			if (name == '' || message == '') {
-				sendStatus('Please enter a Name and Message');
+				console.log('do nothing.');
+			// 	sendStatus('Please enter a Name and Message');
 			} else {
-				// Insert message into MongoDB
-				chat.insert({ name: name, message: message }, function() {
-					io.emit('output', [data]);
+				data.message = filter.clean(data.message);
+				// console.log(userDisplayName);
+				io.emit('output', data);
 
-					// Sent status object
-					sendStatus({
-						message: 'Message Sent',
-						clear: true
-					});
-				});
+				// Sent status object
+				// sendStatus({
+				// 	message: 'Message Sent',
+				// 	clear: true
+				// });
 			}
-		});
-
-		// Handle clearing of chats
-		socket.on('clear', function(data) {
-			// Remove all chats from collection
-			chat.remove({}, function() {
-				// Emit cleared
-				socket.emit('cleared');
-			});
 		});
 	});
 });

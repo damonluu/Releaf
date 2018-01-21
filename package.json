@@ -11,6 +11,7 @@
   "dependencies": {
     "angular": "^1.6.8",
     "angular-route": "^1.6.8",
+    "bad-words": "^1.6.1",
     "express": "^4.16.2",
     "jquery": "^3.3.1",
     "mongodb": "^3.0.1",

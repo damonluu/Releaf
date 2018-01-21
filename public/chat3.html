@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+  <title>releaf</title>
+  <style>
+    #messages {
+      height: 300px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 offset-md-3 col-sm-12">
+        <h1 class="text-center">
+            releaf
+            <button id="clear" class="btn btn-danger">Clear</button>
+        </h1>
+        <div id="status"></div>
+        <div id="chat">
+          <input type="text" id="username" class="form-control" placeholder="Enter name...">
+          <br>
+          <div class="card">
+            <div id="messages" class="card-block">
+
+            </div>
+          </div>
+          <br>
+          <textarea id="textarea" class="form-control" placeholder="Enter message..."></textarea>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
+  <script type="text/javascript" src="./js/chat3.js"></script>
+</body>
+
+</html>
