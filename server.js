@@ -45,63 +45,83 @@ var findMatch = function(socket) {
 
 // Connect to mongodb
 var url = 'mongodb://localhost:27017/releaf';
-mongo.connect(url, function(err, db) {
+var myDb;
+mongo.connect(url, function(err, database) {
 	if (err) {
 		throw err;
 	}
 	console.log('Connected to MongoDB...');
+	// db = database;
+	myDb = database.db('releaf');
+	// myDb.collection('chats').insertOne({});
+	// let user = myDb.collection('users');
 
-	// Connect to Socket.io
-	io.on('connection', function(socket) {
-		const myDb = db.db('releaf');
-		// myDb.collection('chats').insertOne({});
-		// let chat = myDb.collection('chats');
-		console.log('User ' + socket.id + ' connected');
+	// app.post
+});
 
-		socket.on('login', function(data) {
-			console.log('mongoid login: ' + data.mongoid);
-			console.log('pairedmongoid: ' + data.pairedmongoid);
-			ids[socket.id] = data;
-			findMatch(socket);
-		});
+app.post('/user', function(req, res) {
+	console.log('Here');
+	myDb.collection('users').insertOne({});
+	// let user = myDb.collection('users');
 
-		// socket.on('match',function(data){
-		// 	var idA = '5a63f025bd382aa89ba5529a';
-		// 	//
-		// 	//Return idB -> best match
-		// 	var idB = '5a63f025bd382aa89ba5529b';
-		// 	//Create a collection with roomID first
-		// 	//Change roomID and change status for both id
-		// 	//Emit found message
-		// 	io.emit('matched', res);
-		// });
+	myDb.collection('users').insert(req, function(err, result) {
+		if(err) {
+			res.send('Error in new user');
+			throw err;
+		} else {
+			res.send('new user success');
+		}
+	})
+})
 
-		// Handle input events
-		socket.on('input', function(data) {
-			//Data contains objectID
-			let name = data.name;
-			let message = data.message;
-			//update chat var based on data.roomID
 
-			// generate a random number between 0 - 5
-			var num = Math.floor(Math.random() * 6);
-			// Assign the random dispaly name to the user
-			// var userDisplayName = userName.get(num);
+// Connect to Socket.io
+io.on('connection', function(socket) {
+	console.log('User ' + socket.id + ' connected');
 
-			if (name == '' || message == '') {
-				console.log('do nothing.');
-			// 	sendStatus('Please enter a Name and Message');
-			} else {
-				data.message = filter.clean(data.message);
-				// console.log(userDisplayName);
-				io.emit('output', data);
+	socket.on('login', function(data) {
+		console.log('mongoid login: ' + data.mongoid);
+		console.log('pairedmongoid: ' + data.pairedmongoid);
+		ids[socket.id] = data;
+		findMatch(socket);
+	});
 
-				// Sent status object
-				// sendStatus({
-				// 	message: 'Message Sent',
-				// 	clear: true
-				// });
-			}
-		});
+	// socket.on('match',function(data){
+	// 	var idA = '5a63f025bd382aa89ba5529a';
+	// 	//
+	// 	//Return idB -> best match
+	// 	var idB = '5a63f025bd382aa89ba5529b';
+	// 	//Create a collection with roomID first
+	// 	//Change roomID and change status for both id
+	// 	//Emit found message
+	// 	io.emit('matched', res);
+	// });
+
+	// Handle input events
+	socket.on('input', function(data) {
+		//Data contains objectID
+		let name = data.name;
+		let message = data.message;
+		//update chat var based on data.roomID
+
+		// generate a random number between 0 - 5
+		var num = Math.floor(Math.random() * 6);
+		// Assign the random dispaly name to the user
+		// var userDisplayName = userName.get(num);
+
+		if (name == '' || message == '') {
+			console.log('do nothing.');
+		// 	sendStatus('Please enter a Name and Message');
+		} else {
+			data.message = filter.clean(data.message);
+			// console.log(userDisplayName);
+			io.emit('output', data);
+
+			// Sent status object
+			// sendStatus({
+			// 	message: 'Message Sent',
+			// 	clear: true
+			// });
+		}
 	});
 });
