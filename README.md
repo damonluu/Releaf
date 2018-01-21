@@ -26,7 +26,8 @@ We hope to create a safe and respectful environment. We aim to minimize the naga
 
 # Get started
 `npm install releaf`
+
 `npm start`
 
-<img src="https://github.com/damonluu/Releaf/blob/master/releaf_home_compressed.jpg"/>
+<img src="https://github.com/damonluu/Releaf/blob/master/releaf_home_compressed.jpg" width = "600"/>
 
