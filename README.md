@@ -1,10 +1,9 @@
 # What is releaf?
-releaf is a 24-hours-project for social good at HackDavis 2018. 
-We believe mental health, such as depression, is an underestimated topic by many people. 
-Many of us might not feel very comfortable to share how we feel, or more often, we don't know who we can talk to.
-At times, it is easier to talk to someone we don't know. Despite treatment isn't alwasy wasy, there is hope. Sharing is powerful. Sharing makes us feel better as well.
+Releaf is a 24-hours-project for social good at HackDavis 2018. 
+We believe mental health, such as depression, is an underestimated topic overlooked by many people. 
+Many of us might not feel comfortable to share how we really feel when we have the struggles. More often, we don't know who we can share with. We believe having a conversation with someone who is willing to listen is one of the imortant steps to begin, and it is easier to talk to someone we don't know. It might sound unintuitive, but talking to a stranger is not as scary as it seems to be.
 
-"releaf," is an online chat platform for people who feel an urgent to find someone to talk to - everyone in releaf is anonymous; your chat history will be cleared immediately after you leave the chat room.
+"Releaf," is an online chat platform for people who feel an urgent to find someone to talk to - Everyone in releaf is anonymous; your chat history will be cleared immediately after you leave the chat room. Unless you share your personal information with the person you chat with.
 
 # Features
 We want to create an open space where people can feel comfortable to present their authentic selves. To establish such atmosphere:
